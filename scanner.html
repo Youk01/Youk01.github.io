@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Scanner | Robotics & AI Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        :root {
+            --color-primary: #001F3F;
+            --color-secondary: #A9A9A9;
+            --color-bg: #000011;
+            --color-text: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: all 0.3s ease;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .language-toggle {
+            position: relative;
+            width: 80px;
+            height: 40px;
+            background-color: var(--color-primary);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .language-toggle-slider {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background-color: var(--color-secondary);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+        
+        .language-toggle.active .language-toggle-slider {
+            transform: translateX(40px);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--color-secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card {
+            background: rgba(0, 15, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(169, 169, 169, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 31, 63, 0.3);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            width: 1px;
+            height: calc(100% - 20px);
+            background-color: var(--color-secondary);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="text-2xl font-bold" data-en="Portfolio" data-nl="Portfolio">Portfolio</a>
+                
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
+                    <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
+                    <a href="scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
+                    <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
+                    <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
+                    <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
+                </div>
+                
+                <!-- Language Toggle -->
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm" data-en="EN" data-nl="NL">EN</span>
+                    <div class="language-toggle" id="languageToggle">
+                        <div class="language-toggle-slider"></div>
+                    </div>
+                    <span class="text-sm" data-en="NL" data-nl="EN">NL</span>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden focus:outline-none" id="mobileMenuButton">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="md:hidden hidden mt-4" id="mobileMenu">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
+                    <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
+                    <a href="scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
+                    <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
+                    <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
+                    <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 pb-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 fade-in">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6" data-en="Parking Ticket Scanner (Group)" data-nl="Parkeerticket Scanner (Groep)">Parking Ticket Scanner (Group)</h1>
+                    <p class="text-lg md:text-xl mb-8 text-gray-300" data-en="Automate parking with Pi/OCR" data-nl="Automatiseer parkeren met Pi/OCR">Automate parking with Pi/OCR</p>
+                    <a href="#timeline" class="inline-block px-8 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition duration-300" data-en="View Timeline" data-nl="Bekijk Tijdlijn">View Timeline</a>
+                </div>
+                <div class="md:w-1/2 fade-in">
+                    <img src="[IMG3: Scanner proto]" alt="Parking Scanner Prototype" class="w-full h-auto rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Description -->
+    <section class="py-16 bg-black bg-opacity-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center" data-en="Project Overview" data-nl="Projectoverzicht">Project Overview</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div class="card p-6 rounded-lg fade-in">
+                        <h3 class="text-xl font-bold mb-4" data-en="Challenge" data-nl="Uitdaging">Challenge</h3>
+                        <p class="text-gray-300" data-en="Manual parking ticket processing is time-consuming and error-prone" data-nl="Handmatige parkeerticketverwerking is tijdrovend en foutgevoelig">Manual parking ticket processing is time-consuming and error-prone</p>
+                    </div>
+                    
+                    <div class="card p-6 rounded-lg fade-in">
+                        <h3 class="text-xl font-bold mb-4" data-en="Solution" data-nl="Oplossing">Solution</h3>
+                        <p class="text-gray-300" data-en="Raspberry Pi with OCR to automate ticket scanning and data entry" data-nl="Raspberry Pi met OCR om ticket scanning en data-invoer te automatiseren">Raspberry Pi with OCR to automate ticket scanning and data entry</p>
+                    </div>
+                </div>
+                
+                <div class="card p-6 rounded-lg fade-in">
+                    <h3 class="text-xl font-bold mb-4" data-en="Technical Details" data-nl="Technische Details">Technical Details</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-300">
+                        <li data-en="Raspberry Pi 4 with camera module" data-nl="Raspberry Pi 4 met cameramodule">Raspberry Pi 4 with camera module</li>
+                        <li data-en="Python-based OCR processing" data-nl="Python-gebaseerde OCR-verwerking">Python-based OCR processing</li>
+                        <li data-en="Custom database for ticket storage" data-nl="Aangepaste database voor ticketopslag">Custom database for ticket storage</li>
+                        <li data-en="Web interface for administration" data-nl="Webinterface voor administratie">Web interface for administration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center" data-en="Project Timeline" data-nl="Projecttijdlijn">Project Timeline</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-8">
+                    <!-- Week 1 -->
+                    <div class="timeline-item fade-in">
+                        <div class="card p-6 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold mb-2" data-en="Week 1: Research & Planning" data-nl="Week 1: Onderzoek & Planning">Week 1: Research & Planning</h3>
+                                <span class="text-sm text-green-400">✓ Completed</span>
+                            </div>
+                            <p class="text-gray-300" data-en="Initial research on OCR technologies and hardware requirements" data-nl="Eerste onderzoek naar OCR-technologieën en hardwarevereisten">Initial research on OCR technologies and hardware requirements</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 2 -->
+                    <div class="timeline-item fade-in">
+                        <div class="card p-6 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold mb-2" data-en="Week 2: Hardware Setup" data-nl="Week 2: Hardware Setup">Week 2: Hardware Setup</h3>
+                                <span class="text-sm text-green-400">✓ Completed</span>
+                            </div>
+                            <p class="text-gray-300" data-en="Acquired components and set up Raspberry Pi with camera" data-nl="Componenten verkregen en Raspberry Pi met camera opgezet">Acquired components and set up Raspberry Pi with camera</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 3 -->
+                    <div class="timeline-item fade-in">
+                        <div class="card p-6 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold mb-2" data-en="Week 3: OCR Implementation" data-nl="Week 3: OCR Implementatie">Week 3: OCR Implementation</h3>
+                                <span class="text-sm text-yellow-400">In Progress</span>
+                            </div>
+                            <p class="text-gray-300" data-en="Testing Tesseract OCR with sample parking tickets" data-nl="Testen van Tesseract OCR met voorbeeld parkeertickets">Testing Tesseract OCR with sample parking tickets</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 4 -->
+                    <div class="timeline-item fade-in">
+                        <div class="card p-6 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold mb-2" data-en="Week 4: Database Design" data-nl="Week 4: Database Ontwerp">Week 4: Database Design</h3>
+                                <span class="text-sm text-gray-400">Planned</span>
+                            </div>
+                            <p class="text-gray-300" data-en="Creating schema for ticket data storage" data-nl="Schema maken voor ticketdataopslag">Creating schema for ticket data storage</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 5 -->
+                    <div class="timeline-item fade-in">
+                        <div class="card p-6 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold mb-2" data-en="Week 5: Web Interface" data-nl="Week 5: Webinterface">Week 5: Web Interface</h3>
+                                <span class="text-sm text-gray-400">Planned</span>
+                            </div>
+                            <p class="text-gray-300" data-en="Developing admin dashboard for ticket management" data-nl="Ontwikkeling van admin dashboard voor ticketbeheer">Developing admin dashboard for ticket management</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 6 -->
+                    <div class="timeline-item fade-in">
+                        <div class="card p-6 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold mb-2" data-en="Week 6: Testing & Refinement" data-nl="Week 6: Testen & Verfijning">Week 6: Testing & Refinement</h3>
+                                <span class="text-sm text-gray-400">Planned</span>
+                            </div>
+                            <p class="text-gray-300" data-en="System testing and accuracy improvements" data-nl="Systeemtesten en nauwkeurigheidsverbeteringen">System testing and accuracy improvements</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-16 bg-black bg-opacity-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center" data-en="Team Members" data-nl="Teamleden">Team Members</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6 rounded-lg fade-in">
+                    <div class="w-24 h-24 rounded-full bg-gray-700 mb-4 mx-auto"></div>
+                    <h3 class="text-xl font-bold text-center mb-2">Alex</h3>
+                    <p class="text-gray-300 text-center" data-en="Hardware Specialist" data-nl="Hardware Specialist">Hardware Specialist</p>
+                </div>
+                
+                <div class="card p-6 rounded-lg fade-in">
+                    <div class="w-24 h-24 rounded-full bg-gray-700 mb-4 mx-auto"></div>
+                    <h3 class="text-xl font-bold text-center mb-2">Sam</h3>
+                    <p class="text-gray-300 text-center" data-en="Software Developer" data-nl="Software Developer">Software Developer</p>
+                </div>
+                
+                <div class="card p-6 rounded-lg fade-in">
+                    <div class="w-24 h-24 rounded-full bg-gray-700 mb-4 mx-auto"></div>
+                    <h3 class="text-xl font-bold text-center mb-2">Taylor</h3>
+                    <p class="text-gray-300 text-center" data-en="Project Manager" data-nl="Project Manager">Project Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-400" data-en="© 2023 Robotics & AI Portfolio" data-nl="© 2023 Robotica & AI Portfolio">© 2023 Robotics & AI Portfolio</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+        
+        // Language Toggle
+        const languageToggle = document.getElementById('languageToggle');
+        let currentLanguage = 'en';
+        
+        languageToggle.addEventListener('click', () => {
+            languageToggle.classList.toggle('active');
+            currentLanguage = currentLanguage === 'en' ? 'nl' : 'en';
+            updateLanguage(currentLanguage);
+        });
+        
+        function updateLanguage(lang) {
+            document.querySelectorAll('[data-en], [data-nl]').forEach(element => {
+                if (lang === 'en' && element.dataset.en) {
+                    element.textContent = element.dataset.en;
+                } else if (lang === 'nl' && element.dataset.nl) {
+                    element.textContent = element.dataset.nl;
+                }
+            });
+        }
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                }
+            });
+        };
+        
+        // Set initial opacity to 0 for fade-in elements
+        fadeElements.forEach(element => {
+            element.style.opacity = '0';
+        });
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+</body>
+</html>
