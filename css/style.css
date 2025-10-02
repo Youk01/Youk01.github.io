@@ -1,0 +1,83 @@
+body {
+  background: #000011;
+  color: #fff;
+  font-family: 'SF Pro', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background: #A9A9A9;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-family: 'Fira Code', monospace;
+}
+
+nav button {
+  background: #001F3F;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+h2 {
+  font-family: 'Fira Code', monospace;
+  color: #001F3F;
+  text-shadow: 0 0 5px #001F3F;
+}
+
+section {
+  margin: 80px 20px;
+  text-align: center;
+}
+
+.timeline .entry {
+  background: #A9A9A9;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  animation: fadeIn 1s;
+}
+
+.timeline .entry:hover {
+  box-shadow: 0 0 10px #001F3F;
+}
+
+.timeline .entry a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.reflection {
+  background: #A9A9A9;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #A9A9A9;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

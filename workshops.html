@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Workshop Reflections" data-nl="Workshop Reflecties">Workshop Reflections</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Nav (kopieer van boven) -->
+  <nav class="fixed-nav">
+    <a href="index.html" data-en="Home" data-nl="Home">Home</a>
+    <a href="gptars.html" data-en="GPTars" data-nl="GPTars">GPTars</a>
+    <a href="scanner.html" data-en="Parking Scanner" data-nl="Parkeerticket Scanner">Parking Scanner</a>
+    <a href="barli.html" data-en="Barli" data-nl="Barli">Barli</a>
+    <a href="workshops.html" data-en="Workshops" data-nl="Workshops">Workshops</a>
+    <a href="about.html" data-en="About" data-nl="Over">About</a>
+    <button onclick="toggleLanguage()">EN/NL</button>
+  </nav>
+
+  <!-- Intro -->
+  <section style="margin: 80px 20px 20px; text-align: center;">
+    <h2 data-en="Workshop Reflections" data-nl="Workshop Reflecties">Workshop Reflections</h2>
+    <p data-en="This page showcases reflections on workshops attended during my Robotics & AI minor. Each entry links to a detailed page with insights on the workshop experience, how it fits into my studies, and its application in my future career." 
+       data-nl="Deze pagina toont reflecties op workshops gevolgd tijdens mijn Robotics & AI minor. Elke entry linkt naar een detailpagina met inzichten over de workshop-ervaring, hoe het past in mijn studie, en de toepassing in mijn toekomstige carrière.">This page showcases reflections on workshops attended during my Robotics & AI minor. Each entry links to a detailed page with insights on the workshop experience, how it fits into my studies, and its application in my future career.</p>
+  </section>
+
+  <!-- Timeline Visual (als scanner.html: Lijst van entries, klikbaar) -->
+  <section class="timeline">
+    <!-- Voorbeeld Entry 1 -->
+    <div class="entry">
+      <a href="workshop1.html">
+        <p data-en="Workshop 1: CAD Basics" data-nl="Workshop 1: CAD Basis">Workshop 1: CAD Basics</p>
+        <p>✓ Completed</p>
+        <p data-en="Intro to Fusion 360 for robot design." data-nl="Intro tot Fusion 360 voor robotontwerp.">Intro to Fusion 360 for robot design.</p>
+      </a>
+    </div>
+
+    <!-- Voorbeeld Entry 2 -->
+    <div class="entry">
+      <a href="workshop2.html">
+        <p data-en="Workshop 2: Raspberry Pi Setup" data-nl="Workshop 2: Raspberry Pi Setup">Workshop 2: Raspberry Pi Setup</p>
+        <p>In Progress</p>
+        <p data-en="Configuring Pi for IoT and robotics." data-nl="Configureren van Pi voor IoT en robotica.">Configuring Pi for IoT and robotics.</p>
+      </a>
+    </div>
+
+    <!-- Voeg meer toe met copy-paste, bijv. Workshop 3: AI Integration -->
+    <!-- <div class="entry"><a href="workshop3.html">... </a></div> -->
+  </section>
+
+  <!-- JS (voor toggle, kopieer van bestaande) -->
+  <script src="js/script.js"></script> <!-- Pas aan als separate file -->
+  <!-- Embedded JS als geen file -->
+  <script>
+    function toggleLanguage() {
+      const lang = document.documentElement.lang === 'en' ? 'nl' : 'en';
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-en][data-nl]').forEach(el => {
+        el.textContent = el.dataset[lang];
+      });
+    }
+  </script>
+
+  <footer style="text-align: center; padding: 20px; background: #A9A9A9;">© 2025 Youk01 | GitHub: youk01.github.io</footer>
+</body>
+</html>
