@@ -1,141 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-en="Robotics & AI Portfolio" data-nl="Robotica & AI Portfolio">Robotics & AI Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics & AI Portfolio – From Interstellar to Industry</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body class="min-h-screen">
-  <!-- Fixed Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg border-b border-gray-800">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <!-- Logo -->
-        <a href="index.html" class="text-2xl font-bold" data-en="Portfolio" data-nl="Portfolio">Portfolio</a>
-        
-        <!-- Desktop Nav Links -->
-        <div class="hidden md:flex space-x-8">
-          <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
-          <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
-          <a href="scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
-          <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
-          <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
-          <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
-        </div>
-        
-        <!-- Language Toggle -->
-        <div class="flex items-center space-x-4">
-          <span class="text-sm" data-en="EN" data-nl="NL">EN</span>
-          <div class="language-toggle" id="languageToggle">
-            <div class="language-toggle-slider"></div>
-          </div>
-          <span class="text-sm" data-en="NL" data-nl="EN">NL</span>
-        </div>
-        
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden focus:outline-none" id="mobileMenuButton">
-          <i data-feather="menu"></i>
-        </button>
-      </div>
-      
-      <!-- Mobile Menu -->
-      <div class="md:hidden hidden mt-4" id="mobileMenu">
-        <div class="flex flex-col space-y-4">
-          <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
-          <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
-          <a href="scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
-          <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
-          <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
-          <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
-        </div>
-      </div>
-    </div>
-  </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">Portfolio</a>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
+                    <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
+                    <a href="parking-scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
+                    <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
+                    <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
+                    <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
+                </div>
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex items-center justify-center pt-20 pb-16">
-    <div class="container mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center">
-        <div class="md:w-1/2 mb-12 md:mb-0 fade-in">
-          <h1 class="text-4xl md:text-6xl font-bold mb-6" data-en="Building the Future: AI Robots to Smart Inventory" data-nl="De Toekomst Bouwen: AI Robots tot Slimme Voorraad">Building the Future: AI Robots to Smart Inventory</h1>
-          <p class="text-lg md:text-xl mb-8 text-gray-300" data-en="Exploring the intersection of robotics, AI, and practical applications through hands-on projects." data-nl="Onderzoek naar het snijvlak van robotica, AI en praktische toepassingen door middel van praktische projecten.">Exploring the intersection of robotics, AI, and practical applications through hands-on projects.</p>
-          <a href="#projects" class="inline-block px-8 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition duration-300" data-en="View Projects" data-nl="Bekijk Projecten">View Projects</a>
-        </div>
-        <div class="md:w-1/2 fade-in">
-          <img src="[IMG1: TARS render]" alt="TARS Render" class="w-full h-auto rounded-lg shadow-xl">
-        </div>
-      </div>
-    </div>
-  </section>
+                <div class="nav-controls">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <i data-feather="moon"></i>
+                    </button>
+                    <button class="language-toggle" data-en="EN" data-nl="NL">EN</button>
+                </div>
 
-  <!-- Projects Teaser -->
-  <section id="projects" class="py-16 bg-black bg-opacity-50">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-12 text-center" data-en="Featured Projects" data-nl="Uitgelichte Projecten">Featured Projects</h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- GPTars Card -->
-        <div class="card p-6 rounded-lg fade-in">
-          <img src="[IMG2: 3D-print]" alt="GPTars" class="w-full h-48 object-cover rounded-lg mb-4">
-          <h3 class="text-2xl font-bold mb-2">GPTars</h3>
-          <p class="text-gray-300 mb-4" data-en="TARS with ChatGPT integration" data-nl="TARS met ChatGPT integratie">TARS with ChatGPT integration</p>
-          <a href="gptars.html" class="text-blue-400 hover:text-blue-300 flex items-center" data-en="Learn more" data-nl="Meer weten">
-            <span>Learn more</span>
-            <i data-feather="arrow-right" class="ml-2"></i>
-          </a>
+                <button class="mobile-menu-toggle">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
         </div>
-        
-        <!-- Parking Scanner Card -->
-        <div class="card p-6 rounded-lg fade-in">
-          <img src="[IMG3: Scanner proto]" alt="Parking Scanner" class="w-full h-48 object-cover rounded-lg mb-4">
-          <h3 class="text-2xl font-bold mb-2" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</h3>
-          <p class="text-gray-300 mb-4" data-en="Automate parking with Pi/OCR" data-nl="Automatiseer parkeren met Pi/OCR">Automate parking with Pi/OCR</p>
-          <a href="scanner.html" class="text-blue-400 hover:text-blue-300 flex items-center" data-en="Learn more" data-nl="Meer weten">
-            <span>Learn more</span>
-            <i data-feather="arrow-right" class="ml-2"></i>
-          </a>
-        </div>
-        
-        <!-- Barli Card -->
-        <div class="card p-6 rounded-lg fade-in">
-          <img src="[IMG4: Barli dashboard]" alt="Barli" class="w-full h-48 object-cover rounded-lg mb-4">
-          <h3 class="text-2xl font-bold mb-2">Barli</h3>
-          <p class="text-gray-300 mb-4" data-en="IoT dashboards for stock visibility" data-nl="IoT dashboards voor voorraadinzicht">IoT dashboards for stock visibility</p>
-          <a href="barli.html" class="text-blue-400 hover:text-blue-300 flex items-center" data-en="Learn more" data-nl="Meer weten">
-            <span>Learn more</span>
-            <i data-feather="arrow-right" class="ml-2"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- Footer -->
-  <footer class="py-8 border-t border-gray-800">
-    <div class="container mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <p class="text-gray-400" data-en="© 2023 Robotics & AI Portfolio" data-nl="© 2023 Robotica & AI Portfolio">© 2023 Robotics & AI Portfolio</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 data-en="Building the Future: AI Robots to Smart Inventory" data-nl="De Toekomst Bouwen: AI Robots tot Slimme Voorraad">Building the Future: AI Robots to Smart Inventory</h1>
+                <p class="subtitle" data-en="Exploring the intersection of robotics, AI, and practical applications through hands-on projects." data-nl="Onderzoek naar het snijvlak van robotica, AI en praktische toepassingen door middel van praktische projecten.">Exploring the intersection of robotics, AI, and practical applications through hands-on projects.</p>
+                <a href="#projects" class="btn-primary" data-en="View Projects" data-nl="Bekijk Projecten">View Projects</a>
+            </div>
+            <div class="hero-image fade-in">
+                <img src="http://static.photos/technology/1024x576/1" alt="TARS Render" loading="lazy">
+            </div>
         </div>
-        <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-            <i data-feather="github"></i>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-            <i data-feather="twitter"></i>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-            <i data-feather="linkedin"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <script src="js/script.js"></script>
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Featured Projects" data-nl="Uitgelichte Projecten">Featured Projects</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <img src="http://static.photos/technology/640x360/2" alt="GPTars" loading="lazy">
+                    <h3>GPTars</h3>
+                    <p data-en="TARS with ChatGPT integration" data-nl="TARS met ChatGPT integratie">TARS with ChatGPT integration</p>
+                    <a href="gptars.html" class="btn-link" data-en="Learn more" data-nl="Meer weten">Learn more</a>
+                </div>
+
+                <div class="project-card fade-in">
+                    <img src="http://static.photos/technology/640x360/3" alt="Parking Scanner" loading="lazy">
+                    <h3 data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</h3>
+                    <p data-en="Automate parking with Pi/OCR" data-nl="Automatiseer parkeren met Pi/OCR">Automate parking with Pi/OCR</p>
+                    <a href="parking-scanner.html" class="btn-link" data-en="Learn more" data-nl="Meer weten">Learn more</a>
+                </div>
+
+                <div class="project-card fade-in">
+                    <img src="http://static.photos/technology/640x360/4" alt="Barli" loading="lazy">
+                    <h3>Barli</h3>
+                    <p data-en="IoT dashboards for stock visibility" data-nl="IoT dashboards voor voorraadinzicht">IoT dashboards for stock visibility</p>
+                    <a href="barli.html" class="btn-link" data-en="Learn more" data-nl="Meer weten">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-en="© 2023 Robotics & AI Portfolio" data-nl="© 2023 Robotica & AI Portfolio">© 2023 Robotics & AI Portfolio</p>
+            <div class="social-links">
+                <a href="#"><i data-feather="github"></i></a>
+                <a href="#"><i data-feather="twitter"></i></a>
+                <a href="#"><i data-feather="linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

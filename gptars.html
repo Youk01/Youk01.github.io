@@ -1,92 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-en="GPTars: TARS with ChatGPT" data-nl="GPTars: TARS met ChatGPT">GPTars: TARS with ChatGPT</title>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPTars | Robotics & AI Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body class="min-h-screen">
-  <!-- Fixed Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg border-b border-gray-800">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <a href="index.html" class="text-2xl font-bold" data-en="Portfolio" data-nl="Portfolio">Portfolio</a>
-        <div class="hidden md:flex space-x-8">
-          <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
-          <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
-          <a href="scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
-          <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
-          <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
-          <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
-        </div>
-        <div class="flex items-center space-x-4">
-          <span class="text-sm" data-en="EN" data-nl="NL">EN</span>
-          <div class="language-toggle" id="languageToggle">
-            <div class="language-toggle-slider"></div>
-          </div>
-          <span class="text-sm" data-en="NL" data-nl="EN">NL</span>
-        </div>
-        <button class="md:hidden focus:outline-none" id="mobileMenuButton">
-          <i data-feather="menu"></i>
-        </button>
-      </div>
-      <div class="md:hidden hidden mt-4" id="mobileMenu">
-        <div class="flex flex-col space-y-4">
-          <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
-          <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
-          <a href="scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
-          <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
-          <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
-          <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
-        </div>
-      </div>
-    </div>
-  </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">Portfolio</a>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
+                    <a href="gptars.html" class="nav-link active" data-en="GPTars" data-nl="GPTars">GPTars</a>
+                    <a href="parking-scanner.html" class="nav-link" data-en="Parking Scanner" data-nl="Parkeer Scanner">Parking Scanner</a>
+                    <a href="barli.html" class="nav-link" data-en="Barli" data-nl="Barli">Barli</a>
+                    <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
+                    <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
+                </div>
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex items-center justify-center pt-20 pb-16">
-    <div class="container mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center">
-        <div class="md:w-1/2 mb-12 md:mb-0 fade-in">
-          <h1 class="text-4xl md:text-6xl font-bold mb-6" data-en="GPTars: TARS with ChatGPT" data-nl="GPTars: TARS met ChatGPT">GPTars: TARS with ChatGPT</h1>
-          <p class="text-lg md:text-xl mb-8 text-gray-300" data-en="Building an AI-powered TARS robot inspired by Interstellar." data-nl="Bouwen van een AI-aangedreven TARS-robot geïnspireerd door Interstellar.">Building an AI-powered TARS robot inspired by Interstellar.</p>
-          <a href="#learning-goals" class="inline-block px-8 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition duration-300" data-en="View Goals" data-nl="Bekijk Doelen">View Goals</a>
-        </div>
-        <div class="md:w-1/2 fade-in">
-          <img src="[IMG2: 3D-print]" alt="GPTars 3D Print" class="w-full h-auto rounded-lg shadow-xl">
-        </div>
-      </div>
-    </div>
-  </section>
+                <div class="nav-controls">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <i data-feather="moon"></i>
+                    </button>
+                    <button class="language-toggle" data-en="EN" data-nl="NL">EN</button>
+                </div>
 
-  <!-- Learning Goals Section -->
-  <section id="learning-goals" class="py-16 bg-black bg-opacity-50">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-12 text-center" data-en="Learning Goals" data-nl="Leerdoelen">Learning Goals</h2>
-      <div class="grid grid-cols-1 gap-8">
-        <div class="card p-6 rounded-lg fade-in accordion">
-          <h3 class="text-2xl font-bold mb-2 flex justify-between items-center" data-en="Mechanical Structure" data-nl="Mechanische Structuur" onclick="this.parentElement.classList.toggle('active')">
-            Mechanical Structure <span>+</span>
-          </h3>
-          <div class="accordion-content">
-            <p class="text-gray-300" data-en="Objective: Design, 3D-print, and assemble a TARS replica with flexible parts. Progress: Assembled prototype with initial print tests." data-nl="Doel: Ontwerp, 3D-print en assembleer een TARS-replica met flexibele delen. Voortgang: Geassembleerd prototype met initiële printtests.">Objective: Design, 3D-print, and assemble a TARS replica with flexible parts. Progress: Assembled prototype with initial print tests.</p>
-          </div>
+                <button class="mobile-menu-toggle">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
         </div>
-        <div class="card p-6 rounded-lg fade-in accordion">
-          <h3 class="text-2xl font-bold mb-2 flex justify-between items-center" data-en="Electronics Setup" data-nl="Elektronica Opstelling" onclick="this.parentElement.classList.toggle('active')">
-            Electronics Setup <span>+</span>
-          </h3>
-          <div class="accordion-content">
-            <p class="text-gray-300" data-en="Objective: Wire Raspberry Pi and servos for movement. Progress: Basic wiring completed." data-nl="Doel: Bedraad Raspberry Pi en servos voor beweging. Voortgang: Basisbedrading voltooid.">Objective: Wire Raspberry Pi and servos for movement. Progress: Basic wiring completed.</p>
-          </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 data-en="GPTars: TARS with ChatGPT" data-nl="GPTars: TARS met ChatGPT">GPTars: TARS with ChatGPT</h1>
+                <p class="subtitle" data-en="Bringing the iconic TARS robot from Interstellar to life with AI capabilities" data-nl="Breng de iconische TARS-robot uit Interstellar tot leven met AI-mogelijkheden">Bringing the iconic TARS robot from Interstellar to life with AI capabilities</p>
+                <a href="#learning-goals" class="btn-primary" data-en="Learning Goals" data-nl="Leerdoelen">Learning Goals</a>
+            </div>
+            <div class="hero-image fade-in">
+                <img src="http://static.photos/technology/1024x576/2" alt="GPTars Project" loading="lazy">
+            </div>
         </div>
-        <div class="card p-6 rounded-lg fade-in accordion">
-          <h3 class="text-2xl font-bold mb-2 flex justify-between items-center" data-en="Software Integration" data-nl="Software Integratie" onclick="this.parentElement.classList.toggle('active')">
-            Software Integration <span>+</span>
-          </h3>
-          <div class="accordion-content">
-            <p class="text-gray-300" data-en="Objective: Integrate ChatGPT
+    </section>
+
+    <!-- Learning Goals Section -->
+    <section id="learning-goals" class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Learning Goals" data-nl="Leerdoelen">Learning Goals</h2>
+            
+            <!-- Accordions -->
+            <div class="accordion-container">
+                <div class="accordion fade-in">
+                    <button class="accordion-header">
+                        <h3 data-en="Mechanical" data-nl="Mechanisch">Mechanical</h3>
+                        <i data-feather="chevron-down" class="accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="grid-cols-3">
+                            <div>
+                                <h4 data-en="Proof" data-nl="Bewijs">Proof</h4>
+                                <p data-en="Design/print/assemble TARS structure" data-nl="Ontwerp/print/assembleer TARS structuur">Design/print/assemble TARS structure</p>
+                            </div>
+                            <div>
+                                <h4 data-en="Activities" data-nl="Activiteiten">Activities</h4>
+                                <p data-en="Tutorials/print tests" data-nl="Tutorials/print tests">Tutorials/print tests</p>
+                            </div>
+                            <div>
+                                <h4 data-en="Return" data-nl="Terugkoppeling">Return</h4>
+                                <p data-en="More simulations" data-nl="Meer simulaties">More simulations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion fade-in">
+                    <button class="accordion-header">
+                        <h3 data-en="Electronics" data-nl="Elektronica">Electronics</h3>
+                        <i data-feather="chevron-down" class="accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="grid-cols-3">
+                            <div>
+                                <h4 data-en="Proof" data-nl="Bewijs">Proof</h4>
+                                <p data-en="Circuit diagrams/working components" data-nl="Schakelschema's/werkende componenten">Circuit diagrams/working components</p>
+                            </div>
+                            <div>
+                                <h4 data-en="Activities" data-nl="Activiteiten">Activities</h4>
+                                <p data-en="Component testing/wiring" data-nl="Component testing/wiring">Component testing/wiring</p>
+                            </div>
+                            <div>
+                                <h4 data-en="Return" data-nl="Terugkoppeling">Return</h4>
+                                <p data-en="Improved circuit design" data-nl="Verbeterd circuitontwerp">Improved circuit design</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion fade-in">
+                    <button class="accordion-header">
+                        <h3 data-en="Software" data-nl="Software">Software</h3>
+                        <i data-feather="chevron-down" class="accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="grid-cols-3">
+                            <div>
+                                <h4 data-en="Proof" data-nl="Bewijs">Proof</h4>
+                                <p data-en="Functional ChatGPT integration" data-nl="Functionele ChatGPT-integratie">Functional ChatGPT integration</p>
+                            </div>
+                            <div>
+                                <h4 data-en="Activities" data-nl="Activiteiten">Activities</h4>
+                                <p data-en="API development/testing" data-nl="API-ontwikkeling/testen">API development/testing</p>
+                            </div>
+                            <div>
+                                <h4 data-en="Return" data-nl="Terugkoppeling">Return</h4>
+                                <p data-en="Enhanced AI responses" data-nl="Verbeterde AI-reacties">Enhanced AI responses</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Project Timeline" data-nl="Projecttijdlijn">Project Timeline</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-header">
+                    <div data-en="Week" data-nl="Week">Week</div>
+                    <div data-en="Goal" data-nl="Doel">Goal</div>
+                    <div data-en="Activities" data-nl="Activiteiten">Activities</div>
+                    <div data-en="Reflection" data-nl="Reflectie">Reflection</div>
+                    <div data-en="Status" data-nl="Status">Status</div>
+                </div>
+                
+                <div class="timeline-items">
+                    <!-- Week 39 -->
+                    <div class="timeline-item">
+                        <div class="week">39</div>
+                        <div data-en="Initial design concepts" data-nl="Eerste ontwerpconcepten">Initial design concepts</div>
+                        <div data-en="Research, sketching" data-nl="Onderzoek, schetsen">Research, sketching</div>
+                        <div data-en="Need more reference material" data-nl="Meer referentiemateriaal nodig">Need more reference material</div>
+                        <div class="status completed">✓</div>
+                    </div>
+                    
+                    <!-- Week 40 -->
+                    <div class="timeline-item">
+                        <div class="week">40</div>
+                        <div data-en="3D modeling start" data-nl="Start 3D-modellering">3D modeling start</div>
+                        <div data-en="CAD software learning" data-nl="CAD-software leren">CAD software learning</div>
+                        <div data-en="Steep learning curve" data-nl="Steile leercurve">Steep learning curve</div>
+                        <div class="status completed">✓</div>
+                    </div>
+                    
+                    <!-- Week 41 -->
+                    <div class="timeline-item">
+                        <div class="week">41</div>
+                        <div data-en="First prototype print" data-nl="Eerste prototype print">First prototype print</div>
+                        <div data-en="Test prints, adjustments" data-nl="Testprints, aanpassingen">Test prints, adjustments</div>
+                        <div data-en="Need better printer settings" data-nl="Betere printerinstellingen nodig">Need better printer settings</div>
+                        <div class="status completed">✓</div>
+                    </div>
+                    
+                    <!-- Week 42 -->
+                    <div class="timeline-item">
+                        <div class="week">42</div>
+                        <div data-en="Electronics planning" data-nl="Elektronicaplanning">Electronics planning</div>
+                        <div data-en="Component research" data-nl="Componentenonderzoek">Component research</div>
+                        <div data-en="More components needed" data-nl="Meer componenten nodig">More components needed</div>
+                        <div class="status in-progress">In Progress</div>
+                    </div>
+                    
+                    <!-- Week 43 -->
+                    <div class="timeline-item">
+                        <div class="week">43</div>
+                        <div data-en="API integration start" data-nl="Start API-integratie">API integration start</div>
+                        <div data-en="ChatGPT API testing" data-nl="ChatGPT API testen">ChatGPT API testing</div>
+                        <div>-</div>
+                        <div class="status planned">Planned</div>
+                    </div>
+                    
+                    <!-- Week 44 -->
+                    <div class="timeline-item">
+                        <div class="week">44</div>
+                        <div data-en="Assembly start" data-nl="Start assemblage">Assembly start</div>
+                        <div data-en="Mechanical assembly" data-nl="Mechanische assemblage">Mechanical assembly</div>
+                        <div>-</div>
+                        <div class="status planned">Planned</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-en="© 2023 Robotics & AI Portfolio" data-nl="© 2023 Robotica & AI Portfolio">© 2023 Robotics & AI Portfolio</p>
+            <div class="social-links">
+                <a href="#"><i data-feather="github"></i></a>
+                <a href="#"><i data-feather="twitter"></i></a>
+                <a href="#"><i data-feather="linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
