@@ -1,181 +1,126 @@
-```javascript
-// Initialize Feather Icons
-document.addEventListener('DOMContentLoaded', function() {
-    feather.replace();
-    
-    // Theme Toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    const currentTheme = localStorage.getItem('theme') || 
-                         (prefersDarkScheme.matches ? 'dark' : 'light');
-    
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    
-    themeToggle.addEventListener('click', toggleTheme);
-    
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        // Update icon
-        const icon = themeToggle.querySelector('i');
-        icon.setAttribute('data-feather', newTheme === 'dark' ? 'moon' : 'sun');
-        feather.replace();
-    }
-    
-    // Language Toggle
-    const languageToggle = document.querySelector('.language-toggle');
-    let currentLanguage = localStorage.getItem('language') || 'en';
-    
-    updateLanguage(currentLanguage);
-    
-    languageToggle.addEventListener('click', function() {
-        currentLanguage = currentLanguage === 'en' ? 'nl' : 'en';
-        localStorage.setItem('language', currentLanguage);
-        updateLanguage(currentLanguage);
+// Shared UI script for theme, language, mobile menu, accordions, fade-in, and simple workshop storage
+(function () {
+  'use strict';
+
+  // safe feather.replace helper
+  function replaceFeather() {
+    try { if (window.feather) window.feather.replace(); } catch (e) { }
+  }
+
+  // --- Theme ---
+  const themeToggles = document.querySelectorAll('.theme-toggle');
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    themeToggles.forEach(btn => {
+      const icon = btn.querySelector('i');
+      if (!icon) return;
+      icon.dataset.icon = theme === 'dark' ? 'sun' : 'moon';
     });
-    
-    function updateLanguage(lang) {
-        document.querySelectorAll('[data-en], [data-nl]').forEach(element => {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                // Handle form inputs
-                if (lang === 'en' && element.dataset.en) {
-                    element.placeholder = element.dataset.en;
-                } else if (lang === 'nl' && element.dataset.nl) {
-                    element.placeholder = element.dataset.nl;
-                }
-            } else {
-                // Handle all other elements
-                if (lang === 'en' && element.dataset.en) {
-                    element.textContent = element.dataset.en;
-                } else if (lang === 'nl' && element.dataset.nl) {
-                    element.textContent = element.dataset.nl;
-                }
-            }
-        });
-        
-        // Update toggle button text
-        if (languageToggle) {
-            languageToggle.textContent = lang === 'en' ? 'EN' : 'NL';
+    replaceFeather();
+  }
+  themeToggles.forEach(btn => btn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  }));
+  (function initTheme() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(stored || (prefersDark ? 'dark' : 'light'));
+  })();
+
+  // --- Language ---
+  const languageButtons = document.querySelectorAll('.language-toggle');
+  function updateLanguage(lang) {
+    // update any element that provides data-en / data-nl
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const en = el.getAttribute('data-en');
+      const nl = el.getAttribute('data-nl');
+      if (lang === 'en' && en != null) el.textContent = en;
+      else if (lang === 'nl' && nl != null) el.textContent = nl;
+    });
+
+    // sync language toggle buttons (they may carry data-en / data-nl labels)
+    languageButtons.forEach(btn => {
+      const ben = btn.getAttribute('data-en');
+      const bnl = btn.getAttribute('data-nl');
+      if (lang === 'en' && ben != null) btn.textContent = ben;
+      else if (lang === 'nl' && bnl != null) btn.textContent = bnl;
+      // keep dataset in sync
+      btn.dataset.lang = lang;
+    });
+
+    replaceFeather();
+  }
+
+  // clicking any language toggle should flip the current language
+  languageButtons.forEach(btn => btn.addEventListener('click', () => {
+    const current = localStorage.getItem('lang') || 'en';
+    const next = current === 'en' ? 'nl' : 'en';
+    updateLanguage(next);
+    localStorage.setItem('lang', next);
+  }));
+
+  (function initLang(){ const lang = localStorage.getItem('lang') || 'en'; updateLanguage(lang); })();
+
+  // --- Mobile menu ---
+  document.querySelectorAll('.mobile-menu-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const target = document.querySelector(toggle.dataset.target || '.mobile-menu');
+      if (target) target.classList.toggle('open');
+    });
+  });
+
+  // --- Accordions ---
+  document.querySelectorAll('.accordion .accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const accordion = header.closest('.accordion');
+      const content = accordion.querySelector('.accordion-content');
+      accordion.classList.toggle('active');
+      if (accordion.classList.contains('active')) content.style.maxHeight = content.scrollHeight + 'px';
+      else content.style.maxHeight = null;
+    });
+  });
+
+  // --- Fade-in on scroll ---
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  }
+
+  // --- Workshops helpers ---
+  function loadWorkshops() { try { return JSON.parse(localStorage.getItem('workshops') || '[]'); } catch (e) { return []; } }
+  function saveWorkshop(workshop) { const list = loadWorkshops(); list.push(workshop); localStorage.setItem('workshops', JSON.stringify(list)); }
+  window.handleWorkshopSubmit = function (e) { e.preventDefault(); const form = e.target; const title = form.querySelector('[name="title"]').value || ''; const notes = form.querySelector('[name="notes"]').value || ''; const workshop = { id: Date.now(), title, notes, date: new Date().toISOString() }; saveWorkshop(workshop); addWorkshopToDOM(workshop); form.reset(); };
+  function addWorkshopToDOM(workshop) {
+    const list = document.getElementById('workshops-list'); if (!list) return; const lang = localStorage.getItem('lang') || 'en'; const title = (typeof workshop.title === 'object') ? (workshop.title[lang] || '') : (workshop.title || ''); const notes = (typeof workshop.notes === 'object') ? (workshop.notes[lang] || '') : (workshop.notes || ''); const el = document.createElement('div'); el.className = 'workshop-item'; el.innerHTML = `<h3>${escapeHtml(title)}</h3><p>${escapeHtml(notes)}</p><div class="workshop-meta"><span class="status completed">✓ ${lang === 'en' ? 'Completed' : 'Voltooid'}</span></div>`; list.appendChild(el); replaceFeather(); }
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]); }
+  loadWorkshops().forEach(addWorkshopToDOM);
+  replaceFeather();
+
+  // --- Auto-update copyright year ---
+  (function updateCopyrightYear(){
+    try {
+      const year = new Date().getFullYear();
+      // update any element whose text contains © YYYY
+      document.querySelectorAll('body *').forEach(el => {
+        if (!el.children.length) {
+          const txt = el.textContent || '';
+          const replaced = txt.replace(/©\s*\d{4}/g, `© ${year}`);
+          if (replaced !== txt) el.textContent = replaced;
         }
-    }
-    
-    // Mobile Menu Toggle
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    
-    if (mobileMenuToggle && mobileMenu) {
-        mobileMenuToggle.addEventListener('click', function() {
-            mobileMenu.classList.toggle('show');
+      });
+      // also update data-en / data-nl attributes if they contain a year
+      document.querySelectorAll('[data-en],[data-nl]').forEach(el => {
+        ['en','nl'].forEach(k => {
+          const attr = el.getAttribute('data-' + k);
+          if (!attr) return;
+          const replaced = attr.replace(/©\s*\d{4}/g, `© ${year}`);
+          if (replaced !== attr) el.setAttribute('data-' + k, replaced);
         });
-    }
-    
-    // Accordion Functionality
-    const accordions = document.querySelectorAll('.accordion');
-    
-    accordions.forEach(accordion => {
-        const header = accordion.querySelector('.accordion-header');
-        
-        header.addEventListener('click', function() {
-            accordion.classList.toggle('active');
-        });
-    });
-    
-    // Fade-in Animation on Scroll
-    const fadeElements = document.querySelectorAll('.fade-in');
-    
-    function checkFadeIn() {
-        fadeElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementTop < windowHeight - 100) {
-                element.classList.add('visible');
-            }
-        });
-    }
-    
-    // Initialize fade-in elements
-    fadeElements.forEach(element => {
-        element.style.opacity = '0';
-    });
-    
-    // Check on load and scroll
-    checkFadeIn();
-    window.addEventListener('scroll', checkFadeIn);
-    
-    // Workshop Form Handling (if on workshops page)
-    const workshopForm = document.getElementById('workshop-form');
-    if (workshopForm) {
-        workshopForm.addEventListener('submit', handleWorkshopSubmit);
-        loadWorkshops();
-    }
-});
-// Workshop Functions
-function handleWorkshopSubmit(e) {
-    e.preventDefault();
-    
-    const form = e.target;
-    const titleEn = form.querySelector('[name="title_en"]').value;
-    const titleNl = form.querySelector('[name="title_nl"]').value;
-    const contentEn = form.querySelector('[name="content_en"]').value;
-    const contentNl = form.querySelector('[name="content_nl"]').value;
-    const studyFitEn = form.querySelector('[name="study_fit_en"]').value;
-    const studyFitNl = form.querySelector('[name="study_fit_nl"]').value;
-    const careerUseEn = form.querySelector('[name="career_use_en"]').value;
-    const careerUseNl = form.querySelector('[name="career_use_nl"]').value;
-    
-    const workshop = {
-        id: Date.now(),
-        title: { en: titleEn, nl: titleNl },
-        content: { en: contentEn, nl: contentNl },
-        studyFit: { en: studyFitEn, nl: studyFitNl },
-        careerUse: { en: careerUseEn, nl: careerUseNl },
-        date: new Date().toISOString(),
-        status: 'completed'
-    };
-    
-    saveWorkshop(workshop);
-    addWorkshopToDOM(workshop);
-    form.reset();
-}
-function saveWorkshop(workshop) {
-    let workshops = JSON.parse(localStorage.getItem('workshops')) || [];
-    workshops.push(workshop);
-    localStorage.setItem('workshops', JSON.stringify(workshops));
-}
-function loadWorkshops() {
-    const workshops = JSON.parse(localStorage.getItem('workshops')) || [];
-    const currentLanguage = localStorage.getItem('language') || 'en';
-    
-    workshops.forEach(workshop => {
-        addWorkshopToDOM(workshop);
-    });
-}
-function addWorkshopToDOM(workshop) {
-    const workshopsList = document.getElementById('workshops-list');
-    const currentLanguage = localStorage.getItem('language') || 'en';
-    
-    if (!workshopsList) return;
-    
-    const workshopElement = document.createElement('div');
-    workshopElement.className = 'workshop-item';
-    workshopElement.innerHTML = `
-        <h3>${workshop.title[currentLanguage]}</h3>
-        <p>${workshop.content[currentLanguage]}</p>
-        <div class="workshop-meta">
-            <span class="status completed">✓ ${currentLanguage === 'en' ? 'Completed' : 'Voltooid'}</span>
-            <a href="workshop-${workshop.id}.html" class="btn-link">
-                ${currentLanguage === 'en' ? 'Read more' : 'Lees meer'} 
-                <i data-feather="arrow-right"></i>
-            </a>
-        </div>
-    `;
-    
-    workshopsList.appendChild(workshopElement);
-    feather.replace();
-}
-```
+      });
+    } catch (e) { /* silent */ }
+  })();
+})();
