@@ -53,12 +53,15 @@ body {
     background: rgba(0,0,0,0.6);
     border-bottom: 1px solid var(--color-border);
 }
-.nav .nav-container { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.75rem 0; }
+.nav .nav-container { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.75rem 0; position:relative; }
 .logo { font-weight:700; font-family:'Fira Code', monospace; color:var(--color-text); }
-.nav-links { display:flex; gap:1rem; align-items:center; }
+.nav-links { display:flex; gap:1rem; align-items:center; position:absolute; left:50%; transform:translateX(-50%); }
 .nav-link { color:var(--color-text); text-decoration:none; font-weight:500; }
 .nav-controls { display:flex; gap:0.5rem; align-items:center; }
 .theme-toggle, .language-toggle, .mobile-menu-toggle { background:none; border:0; color:var(--color-text); cursor:pointer; padding:0.25rem; }
+
+/* hide the 3-stripe mobile menu button (requested) */
+.mobile-menu-toggle { display:none !important; }
 
 /* Hero */
 .hero { min-height:80vh; display:flex; align-items:center; padding:6rem 0 3rem; }
@@ -90,8 +93,8 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .nav-links { display:none; }
-    .mobile-menu-toggle { display:inline-block; }
+    /* keep nav links visible on small screens but allow wrapping */
+    .nav-links { display:flex; flex-wrap:wrap; gap:0.5rem; position:static; transform:none; justify-content:center; }
     .hero { padding-top:5rem; }
     .container { padding:0 1rem; }
 }
