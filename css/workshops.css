@@ -1,0 +1,81 @@
+/* Workshops — TARS-inspired card grid (extracted) */
+.workshops-section {
+    margin-top: 80px; /* section margin-top */
+    text-align: center;
+}
+.workshops-hero-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+.workshops-hero-underline {
+    width: 100px;
+    height: 3px;
+    background: #001F3F;
+    margin: 12px auto 18px auto;
+    border-radius: 2px;
+}
+.workshops-hero-intro {
+    color: #cccccc;
+    max-width: 720px;
+    margin: 0 auto 60px auto;
+    font-size: 1.02rem;
+}
+
+/* Cards container */
+.workshops-grid {
+    display: grid;
+    gap: 32px;
+    place-items: center;
+    grid-template-columns: 1fr; /* mobile 1 col */
+    margin: 0 auto;
+}
+
+/* Responsive columns */
+@media (min-width: 640px) { .workshops-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .workshops-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Individual card */
+.workshop-card {
+    width: 100%;
+    max-width: 380px;
+    background: #0a0a15;
+    border: 1px solid #001F3F;
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    text-decoration: none;
+    color: #e0f0ff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(0);
+}
+.workshop-card:hover {
+    border: 2px solid #00ccff;
+    box-shadow: 0 12px 30px rgba(0,204,255,0.25), 0 4px 15px rgba(0,0,0,0.3);
+    transform: translateY(-8px);
+}
+
+.card-date {
+    color: #A9A9A9;
+    font-size: 0.8rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-family: 'SF Pro Display', Arial, sans-serif;
+    font-weight: 500;
+}
+.card-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 1.4rem;
+    color: #e0f0ff;
+    margin: 0;
+    transition: color 0.35s ease;
+}
+.workshop-card:hover .card-title { color: #00ccff; }
+
+/* Ensure hero spacing when used on the page (kept here for workshop page) */
+.hero .hero-content { margin-top: 0; }

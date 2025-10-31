@@ -1,4 +1,4 @@
-// Shared UI script for theme, language, mobile menu, accordions, fade-in, and simple workshop storage
+// Shared UI script for theme, mobile menu, accordions, fade-in, and simple workshop storage
 (function () {
   'use strict';
 
@@ -7,61 +7,7 @@
     try { if (window.feather) window.feather.replace(); } catch (e) { }
   }
 
-  // --- Theme ---
-  const themeToggles = document.querySelectorAll('.theme-toggle');
-  function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    themeToggles.forEach(btn => {
-      const icon = btn.querySelector('i');
-      if (!icon) return;
-      icon.dataset.icon = theme === 'dark' ? 'sun' : 'moon';
-    });
-    replaceFeather();
-  }
-  themeToggles.forEach(btn => btn.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme') || 'dark';
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  }));
-  (function initTheme() {
-    const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(stored || (prefersDark ? 'dark' : 'light'));
-  })();
 
-  // --- Language ---
-  const languageButtons = document.querySelectorAll('.language-toggle');
-  function updateLanguage(lang) {
-    // update any element that provides data-en / data-nl
-    document.querySelectorAll('[data-en]').forEach(el => {
-      const en = el.getAttribute('data-en');
-      const nl = el.getAttribute('data-nl');
-      if (lang === 'en' && en != null) el.textContent = en;
-      else if (lang === 'nl' && nl != null) el.textContent = nl;
-    });
-
-    // sync language toggle buttons (they may carry data-en / data-nl labels)
-    languageButtons.forEach(btn => {
-      const ben = btn.getAttribute('data-en');
-      const bnl = btn.getAttribute('data-nl');
-      if (lang === 'en' && ben != null) btn.textContent = ben;
-      else if (lang === 'nl' && bnl != null) btn.textContent = bnl;
-      // keep dataset in sync
-      btn.dataset.lang = lang;
-    });
-
-    replaceFeather();
-  }
-
-  // clicking any language toggle should flip the current language
-  languageButtons.forEach(btn => btn.addEventListener('click', () => {
-    const current = localStorage.getItem('lang') || 'en';
-    const next = current === 'en' ? 'nl' : 'en';
-    updateLanguage(next);
-    localStorage.setItem('lang', next);
-  }));
-
-  (function initLang(){ const lang = localStorage.getItem('lang') || 'en'; updateLanguage(lang); })();
 
   // --- Mobile menu ---
   document.querySelectorAll('.mobile-menu-toggle').forEach(toggle => {
@@ -82,7 +28,6 @@
     });
   });
 
-  // --- Fade-in on scroll ---
   if ('IntersectionObserver' in window) {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
@@ -92,10 +37,62 @@
 
   // --- Workshops helpers ---
   function loadWorkshops() { try { return JSON.parse(localStorage.getItem('workshops') || '[]'); } catch (e) { return []; } }
+  // --- Fade-in on load for .fade-in cards ---
+  document.addEventListener('DOMContentLoaded', function() {
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    } else {
+      // Fallback for old browsers
+      document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
+  });
   function saveWorkshop(workshop) { const list = loadWorkshops(); list.push(workshop); localStorage.setItem('workshops', JSON.stringify(list)); }
   window.handleWorkshopSubmit = function (e) { e.preventDefault(); const form = e.target; const title = form.querySelector('[name="title"]').value || ''; const notes = form.querySelector('[name="notes"]').value || ''; const workshop = { id: Date.now(), title, notes, date: new Date().toISOString() }; saveWorkshop(workshop); addWorkshopToDOM(workshop); form.reset(); };
   function addWorkshopToDOM(workshop) {
-    const list = document.getElementById('workshops-list'); if (!list) return; const lang = localStorage.getItem('lang') || 'en'; const title = (typeof workshop.title === 'object') ? (workshop.title[lang] || '') : (workshop.title || ''); const notes = (typeof workshop.notes === 'object') ? (workshop.notes[lang] || '') : (workshop.notes || ''); const el = document.createElement('div'); el.className = 'workshop-item'; el.innerHTML = `<h3>${escapeHtml(title)}</h3><p>${escapeHtml(notes)}</p><div class="workshop-meta"><span class="status completed">✓ ${lang === 'en' ? 'Completed' : 'Voltooid'}</span></div>`; list.appendChild(el); replaceFeather(); }
+    const list = document.getElementById('workshops-list');
+    if (!list) return;
+    const el = document.createElement('div');
+    el.className = 'workshop-item';
+    el.innerHTML = `<h3>${escapeHtml(workshop.title)}</h3><p>${escapeHtml(workshop.notes)}</p><div class="workshop-meta"><span class="status completed">✓ Completed</span></div>`;
+    list.appendChild(el);
+    replaceFeather();
+  }
+  
+  // --- Timeline helper: add a timeline entry (used on workshops list)
+  window.addWorkshopTimelineEntry = function (opts) {
+    // opts: { href, title: {en,nl} | string, date: {en,nl}|string, statusLabel: {en,nl}|string, description: {en,nl}|string }
+    try {
+      const container = document.querySelector('.timeline');
+      if (!container) return;
+      const a = document.createElement('a');
+      a.href = opts.href || '#';
+      // build inner HTML with data- attributes for bilingual swapping
+      const wrap = document.createElement('div');
+      wrap.className = 'entry';
+      const title = (typeof opts.title === 'object') ? opts.title.en : opts.title;
+      const titleNl = (typeof opts.title === 'object') ? opts.title.nl : '';
+      const date = (typeof opts.date === 'object') ? opts.date.en : opts.date || '';
+      const dateNl = (typeof opts.date === 'object') ? opts.date.nl : '';
+      const status = (typeof opts.statusLabel === 'object') ? opts.statusLabel.en : (opts.statusLabel || 'Completed');
+      const statusNl = (typeof opts.statusLabel === 'object') ? opts.statusLabel.nl : '';
+      const desc = (typeof opts.description === 'object') ? opts.description.en : (opts.description || '');
+      const descNl = (typeof opts.description === 'object') ? opts.description.nl : '';
+      a.innerHTML = `<h2 data-en="${escapeHtml(title)}" data-nl="${escapeHtml(titleNl)}">${escapeHtml(title)}</h2>`;
+      a.innerHTML += `<p class="date" data-en="${escapeHtml(date)}" data-nl="${escapeHtml(dateNl)}">${escapeHtml(date)}</p>`;
+      a.innerHTML += `<p class="status">✓ <span data-en="${escapeHtml(status)}" data-nl="${escapeHtml(statusNl)}">${escapeHtml(status)}</span></p>`;
+      a.innerHTML += `<p data-en="${escapeHtml(desc)}" data-nl="${escapeHtml(descNl)}">${escapeHtml(desc)}</p>`;
+      wrap.appendChild(a);
+      container.appendChild(wrap);
+      // re-run language update to apply current lang to this new element
+      const cur = localStorage.getItem('lang') || 'en';
+      updateLanguage(cur);
+      replaceFeather();
+      return wrap;
+    } catch (e) { console.error(e); }
+  };
   function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]); }
   loadWorkshops().forEach(addWorkshopToDOM);
   replaceFeather();

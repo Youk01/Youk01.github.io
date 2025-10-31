@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="nl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title data-en="Workshops — Robotics & AI Portfolio" data-nl="Workshops — Robotica & AI Portfolio">Workshops — Robotics & AI Portfolio</title>
+  <title>Workshops — Robotica & AI Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/workshops.css" />
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav nav-fixed">
     <div class="container">
       <div class="nav-container">
         <a href="index.html" class="logo">Portfolio</a>
         <div class="nav-links">
-          <a href="index.html" class="nav-link" data-en="Home" data-nl="Home">Home</a>
-          <a href="gptars.html" class="nav-link" data-en="GPTars" data-nl="GPTars">GPTars</a>
-          <a href="workshops.html" class="nav-link" data-en="Workshops" data-nl="Workshops">Workshops</a>
-          <a href="about.html" class="nav-link" data-en="About" data-nl="Over">About</a>
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="gptars.html" class="nav-link">GPTars</a>
+          <a href="workshops.html" class="nav-link">Workshops</a>
+          <a href="about.html" class="nav-link">Over</a>
         </div>
-        <div class="nav-controls">
-          <button class="theme-toggle" aria-label="Toggle theme"><i data-feather="moon"></i></button>
-          <button class="language-toggle" data-en="EN" data-nl="NL">EN</button>
-        </div>
-        <button class="mobile-menu-toggle"><i data-feather="menu"></i></button>
       </div>
     </div>
   </nav>
 
+
   <main class="container">
-    <section class="section hero">
+    <section class="section hero workshops-section">
       <div class="hero-content">
-        <h1 data-en="Workshops" data-nl="Workshops">Workshops</h1>
-        <p data-en="Reflections and notes from workshops attended during my Robotics & AI minor." data-nl="Reflecties en aantekeningen van workshops gevolgd tijdens mijn Robotica & AI minor.">Reflections and notes from workshops attended during my Robotics & AI minor.</p>
+        <h1 class="workshops-hero-title">Workshops</h1>
+        <div class="workshops-hero-underline"></div>
+        <p class="workshops-hero-intro">Overzicht van gevolgde workshops binnen de minor Factory of the future, met reflectie op toepassing in studie en carrière.</p>
       </div>
     </section>
 
-    <section class="section timeline">
-      <div class="entry">
-        <a href="workshop1.html">
-          <h2 data-en="Workshop 1: CAD Basics" data-nl="Workshop 1: CAD Basis">Workshop 1: CAD Basics</h2>
-          <p data-en="Intro to Fusion 360 for robot design." data-nl="Intro tot Fusion 360 voor robotontwerp.">Intro to Fusion 360 for robot design.</p>
+  <section class="section timeline workshops-section">
+      <div class="workshops-grid">
+        <a href="workshop_sew.html" class="workshop-card">
+          <div class="card-date">3 SEPTEMBER 2025</div>
+          <div class="card-title">SEW Rondleiding & Digital Twins</div>
         </a>
-      </div>
-
-      <div class="entry">
-        <a href="workshop2.html">
-          <h2 data-en="Workshop 2: Raspberry Pi Setup" data-nl="Workshop 2: Raspberry Pi Setup">Workshop 2: Raspberry Pi Setup</h2>
-          <p data-en="Configuring Pi for IoT and robotics." data-nl="Configureren van Pi voor IoT en robotica.">Configuring Pi for IoT and robotics.</p>
+        <a href="workshop_placeholder1.html" class="workshop-card">
+          <div class="card-date">1 OKTOBER 2025</div>
+          <div class="card-title">AI in de Praktijk</div>
+        </a>
+        <a href="workshop_placeholder2.html" class="workshop-card">
+          <div class="card-date">15 OKTOBER 2025</div>
+          <div class="card-title">Robotica & Ethiek</div>
         </a>
       </div>
     </section>
-  </main>
+    </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 Robotics & AI Portfolio</p>
-    </div>
-  </footer>
+    <footer class="footer">
+      <div class="container">
+        <p>© 2025 Youk Overeem | Portfolio</p>
+      </div>
+    </footer>
 
-  <script src="js/script.js"></script>
-</body>
+    <script src="js/script.js"></script>
+  </body>
 </html>
