@@ -25,21 +25,30 @@
 
 /* Cards container */
 .workshops-grid {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 32px;
-    place-items: center;
-    grid-template-columns: 1fr; /* mobile 1 col */
+    position: relative;
+    width: 100%;
+    max-width: 960px;
     margin: 0 auto;
+    padding-left: 50px;
 }
 
-/* Responsive columns */
-@media (min-width: 640px) { .workshops-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .workshops-grid { grid-template-columns: repeat(3, 1fr); } }
+.workshops-grid::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background-color: #ccc;
+}
 
 /* Individual card */
 .workshop-card {
     width: 100%;
-    max-width: 380px;
+    max-width: 100%;
     background: #0a0a15;
     border: 1px solid #001F3F;
     border-radius: 18px;
@@ -50,8 +59,27 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    text-align: left;
     transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     transform: translateY(0);
+    position: relative;
+}
+
+.workshop-card::before {
+    content: '';
+    position: absolute;
+    left: -35px;
+    top: calc(50% - 7px);
+    height: 14px;
+    width: 14px;
+    background-color: #ccc;
+    border: 2px solid #0a0a15;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.workshop-card:hover::before {
+    background-color: #00ccff;
 }
 .workshop-card:hover {
     border: 2px solid #00ccff;

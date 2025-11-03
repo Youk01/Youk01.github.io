@@ -4,5 +4,3 @@ colorTo: purple
 emoji: 🐳
 sdk: static
 pinned: false
-tags:
-  - deepsite-
