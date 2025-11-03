@@ -174,7 +174,7 @@ html {
     .entry.card, .reflection.card { padding: 1rem; }
     .hero { padding: 4rem 0 2rem; }
 }
-.accordion { background:var(--color-card); border:1px solid var(--color-border); border-radius:0.5rem; overflow:hidden; }
+.accordion { background:var(--color-card); border:1px solid var(--color-border); border-radius:0.5rem; overflow:hidden; margin-bottom: 1rem; }
 .accordion-header { width:100%; display:flex; justify-content:space-between; align-items:center; padding:1rem; cursor:pointer; background:transparent; border:0; color:var(--color-text); }
 .accordion-content { max-height:0; overflow:hidden; transition:max-height .28s ease; }
 .accordion.active .accordion-content { max-height:600px; }
