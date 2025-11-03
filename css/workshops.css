@@ -1,6 +1,7 @@
 /* Workshops — TARS-inspired card grid (extracted) */
 .workshops-section {
     margin-top: 80px; /* section margin-top */
+    margin-bottom: 80px;
     text-align: center;
 }
 .workshops-hero-title {

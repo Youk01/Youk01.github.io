@@ -47,11 +47,27 @@ html {
 /* NOTE: workshop styles have been moved to css/workshops.css */
 
 .hero .hero-image { flex:1; display:flex; justify-content:center; align-items:center; margin-top:2.5rem; }
+.hero .hero-image img { border-radius: 12px; }
 .subtitle { color:var(--color-secondary); max-width:60ch; }
 .projects-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; }
-.project-card { background:var(--color-card); border:1px solid var(--color-border); padding:1rem; border-radius:0.75rem; }
+.project-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+}
+.project-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
 .project-card h3 { margin:0.75rem 0 0.5rem; }
-.project-card p { color:var(--color-secondary); }
+.project-card p { color:var(--color-secondary); flex-grow: 1; }
+.project-card .btn-link { margin-top: auto; }
 .btn-primary { display:inline-block; padding:0.6rem 1rem; border-radius:0.5rem; background:var(--color-primary); color:#fff; text-decoration:none; }
 .btn-link { color:var(--color-accent); text-decoration:none; }
 
@@ -216,3 +232,8 @@ html {
 /* Mobile menu helper */
 .mobile-menu { display:none; }
 .mobile-menu.open { display:block; }
+
+.x-logo {
+    height: 24px;
+    width: 24px;
+}
